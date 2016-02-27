@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Proj.Models.PostComment>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <td>
+            Post ID
+        </td>
+        <td>
+            Post Content
+        </td>
+        <td>
+            Comment Author
+        </td>
+        <td>
+            Comment content
+        </td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.post.PostID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.post.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment.CommentAuthor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.comment.CommentText)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.post.PostID })
+            </td>
+            
+        </tr>
+    }
+</table>
+@Html.ActionLink("Back To Admin Page", "Index", "Posts")

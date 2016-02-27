@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "NavBar";
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <!--small page  bootstrap CSS library-->
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <!--Format is : DisplayName,ActualPage,FromFolder-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="selected">@Html.ActionLink("Blog", "Index", "Blog")</li>
+                    <li class="selected">@Html.ActionLink("Add New Post", "Create", "Posts")</li>
+                    if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Manage", "Index", "Posts")</li>
+                    }
+                    <li>@Html.ActionLink("Visit Us", "Index", "Stores")</li>
+                    <li>@Html.ActionLink("Like Us", "Like", "Blog")</li>
+                    <li><div id="transDemo2"><div class="hover"><img src=http://www.ashlylorenzana.com/wp-content/uploads/2013/12/12065637851779660844SRD_RSS_Logo.svg_.hi_.png width="30" height="30" /></div></div></li>
+                }
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</div>

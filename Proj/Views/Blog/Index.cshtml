@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Proj.Models.Post>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Blog";
+}
+
+<!--The Content of the Blog using Special Font that comes from div-->
+@using (Html.BeginForm("SearchPost", "Posts", FormMethod.Post))
+{
+    @Html.Partial("~/Views/Posts/SearchPost.cshtml", new Proj.Models.Post());
+}
+
+@foreach (var item in Model)
+{
+
+    @Html.AntiForgeryToken()
+    <section>
+        <article class="blogPost">
+            <header>
+                <h2>@item.Title</h2>
+                <p>Posted on <time>@item.PostDate</time> by <a href="@item.URLWebAddress">@item.Author</a> - <a href="#comments-@item.PostID">@(item.Comments != null ? item.Comments.Count : 0) comments</a></p>
+            </header>
+
+            <p>@item.Text</p>
+            @if (!String.IsNullOrWhiteSpace(item.ImageUrl))
+            {
+                <img src="@item.ImageUrl" alt="Post Image" />
+            }
+            @if (!String.IsNullOrWhiteSpace(item.VideoUrl))
+            {
+                <iframe width="600" height="315"
+                        src="@item.VideoUrl" frameborder="0"></iframe>
+            }
+        </article>
+    </section>
+    <section class="comments" id="comments-@item.PostID">
+        <h3>Comments</h3>
+        @if (item.Comments != null)
+        {
+            foreach (var comment in item.Comments)
+            {
+                <article>
+                    <header>
+                        <a href="@comment.CommentAuthorURL">@comment.CommentAuthor</a> on <time>@comment.CommentDate</time>
+                    </header>
+                    <p>@comment.CommentText</p>
+                </article>
+            }
+        }
+    </section>
+    @Html.Partial("~/Views/Comments/Create.cshtml", new Proj.Models.Comment { PostID = item.PostID })
+}

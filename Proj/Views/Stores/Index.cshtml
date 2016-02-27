@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Proj.Models.Stores>
+@{
+    ViewBag.Title = "Index";
+}
+
+<img src="~/images/shauli.gif" id="shauliCanvasImage" hidden>
+<img src="~/images/shauliShirt.png" id="shauliCanvasImage2" hidden>
+<img src="~/images/shauliCup.jpg" id="shauliCanvasImage3" hidden>
+<script src="~/Scripts/storesCanvas.js"></script><!--added for Canvas-->
+<canvas id="myCanvas" width="580" height="180"
+        style="border:0px solid #7171C6;"></canvas><!--should be added to CSS-->
+
+<br />
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create", "Create")
+
+    }
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            Map
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                <div id="map-@item.StoreID" class="map">
+                </div>
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.StoreID })
+                        <br />
+                        @Html.ActionLink("Delete", "Delete", new { id = item.StoreID })
+                    }
+                }
+            </td>
+
+        </tr>
+    }
+</table>
+
+<script src="~/Scripts/google.map.js"></script><!--added for google maps-->
+<script src="~/Scripts/main_page.js"></script><!--added for google maps-->
+@foreach (var item in Model)
+{
+    <script>
+
+        // call js map init - at the moment its being called with static location, in the next step we need tomake it dinamic - consider using web service
+        init_map("map-@item.StoreID", "@item.latLocation", "@item.longLocation")
+    </script>
+}

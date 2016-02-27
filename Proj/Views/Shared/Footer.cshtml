@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Footer";
+}
+<script src="~/Scripts/footerCanvas.js"></script><!--added for Canvas-->
+<div>
+    <section id="about">
+        <h3>About Me</h3>
+        <p>I am Shauli - 36 years old Rocket scientist from California - and this is my Blog. I will be happy to answer any of your questions.</p>
+    </section>
+    <section id="blogroll">
+        <h3>My favorite web-sites</h3>
+        <ul>
+            <li><a href="#">NETTUTS+</a></li>
+            <li><a href="#">FreelanceSwitch</a></li>
+        </ul>
+    </section>
+    <section id="popular">
+        <h3>Visit Us</h3>
+        <ul>
+            <li>@Html.ActionLink("Stores List", "Index", "Stores")</li>
+            <li>any day is a good day to visit us, don't worry for the weather</li>
+        </ul>
+        <img src="~/images/sunnyDay.png" id="sunny" hidden>
+        <img src="~/images/rain.jpg" id="rain" hidden>
+        <canvas id="myCanvas2" width="300" height="100"
+                style="border:0px solid #7171C6;"></canvas>
+    </section>
+
+</div>

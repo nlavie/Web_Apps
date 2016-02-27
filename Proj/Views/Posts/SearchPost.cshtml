@@ -1,0 +1,53 @@
+﻿@model Proj.Models.Post
+@using (Html.BeginForm("SearchPost", "Post"))
+{
+    <section id="search">
+        <!--Search Section-->
+        <form action="action_page.php">
+            <h3>Search By:</h3>
+            <p>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <!--Name that will appear-->
+                    @Html.LabelFor(post => post.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <!--Value that will host the text-->
+                        @Html.EditorFor(post => post.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="form-group">
+                    @Html.LabelFor(post => post.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(post => post.Text, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="form-group">
+                    @Html.LabelFor(post => post.PostDate, "Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(post => post.PostDate)
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="form-group">
+                    <label for="amountComments">Amount</label>
+                    <div class="col-md-offset-2">
+                        <input type="range" id="rangeInput" name="rangeInput" min="0" max="100" value="0"
+                               oninput="amount.value=rangeInput.value">
+                        <output name="amount" for="rangeInput">0</output>
+                    </div>
+                </div>
+            </p>
+            <div>
+                <input type="submit" value="Search">
+            </div>
+        </form>
+    </section>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
